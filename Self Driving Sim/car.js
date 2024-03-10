@@ -11,11 +11,17 @@ class Car{
         this.friction=0.05;
         this.angle=0
 
+        this.sensor=new Sensor(this);
         this.controls=new Controls();
     }
 
 
-    update(){
+    update(roadBorders){
+        this.#move();
+        this.sensor.update(roadBorders);
+    }
+
+    #move(){
         if(this.controls.forward){
             this.speed+=this.acceleration;
         }
@@ -51,9 +57,11 @@ class Car{
                 this.angle-=0.03*flip;
             }
         }
-        
+    
         this.x-=Math.sin(this.angle)*this.speed;
         this.y-=Math.cos(this.angle)*this.speed;
+
+        
     }
 
 
@@ -77,5 +85,6 @@ class Car{
         ctx.restore();
         // The context is restored to its previous state before the translation and rotation.
 
+        this.sensor.draw(ctx);
     }
 }

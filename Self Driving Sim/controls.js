@@ -1,12 +1,18 @@
 class Controls{
-    constructor(){
+    constructor(type){
         this.forward=false;
         this.left=false;
         this.right=false;
         this.reverse=false;
 
-        this.#addKeyboardListeners();
-        // hashtag makes it a private method so you can't access outside of this control class.
+        switch(type){
+            case "KEYS":
+                this.#addKeyboardListeners();
+                break;
+            case "DUMMY":
+                this.forward=true;
+                break;
+        }
     }
 
     #addKeyboardListeners(){            
